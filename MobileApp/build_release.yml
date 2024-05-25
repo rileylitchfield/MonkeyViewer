@@ -1,0 +1,22 @@
+﻿
+stages:
+    - build
+    - release
+
+build:
+    stage: build
+    image: openjdk:11
+    script:
+        - ./gradlew assembleRelease
+
+    artifacts: 
+        paths:
+            - app.build/outputs/apk/release/app-release.apk
+
+release:
+    stage: release
+    script:
+        - echo "Creating Release"
+    artifacts:
+        paths:
+            - app/build/outputs/apk/release/app-release.apk
