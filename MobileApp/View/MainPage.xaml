@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:MobileApp.Model"
@@ -7,42 +7,53 @@
              x:Class="MobileApp.MainPage"
              Title="{Binding Title}">
 
+    <!-- Set a background color for the ContentPage -->
+    <ContentPage.BackgroundColor>
+        <Color>#F5F5F5</Color>
+    </ContentPage.BackgroundColor>
 
-    <StackLayout>
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
         <CarouselView 
             ItemsSource="{Binding Monkeys}" 
             IndicatorView="indicatorView"
             VerticalOptions="FillAndExpand">
             <CarouselView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
-                    <Grid Padding="10">
-                        <Frame Style="{StaticResource CardView}">
-                            <Grid Padding="0" >
-                                <Image Aspect="AspectFill" VerticalOptions="FillAndExpand" Source="{Binding Image}"/>
-                            </Grid>
-                        </Frame>
-                    </Grid>
+                    <Frame Style="{StaticResource CardView}" Margin="10">
+                        <Grid Padding="0">
+                            <Image Aspect="AspectFill" VerticalOptions="FillAndExpand" Source="{Binding Image}"/>
+                        </Grid>
+                    </Frame>
                 </DataTemplate>
             </CarouselView.ItemTemplate>
         </CarouselView>
+        
         <IndicatorView
             x:Name="indicatorView"
             HorizontalOptions="Center"
             IndicatorColor="LightGray"
             SelectedIndicatorColor="DarkGray"
-            />
-        <Button Text="Get Monkeys"
-                Command="{Binding GetMonkeysCommand}"
-                IsEnabled="{Binding IsNotBusy}"
-                Grid.Row="1"
-                Grid.Column="0"
-                Style="{StaticResource ButtonOutline}"
-                Margin="8"/>
-        <ActivityIndicator IsVisible="{Binding IsBusy}"
-                           IsRunning="{Binding IsBusy}"
-                           HorizontalOptions="FillAndExpand"
-                           VerticalOptions="CenterAndExpand"
-                           Grid.RowSpan="2"
-                           Grid.ColumnSpan="2"/>
-    </StackLayout>
+            Grid.Row="1"
+            Margin="0,10,0,0"/>
+
+        <StackLayout Grid.Row="2" Margin="0,20,0,0">
+            <Button Text="Get Monkeys"
+                    Command="{Binding GetMonkeysCommand}"
+                    IsEnabled="{Binding IsNotBusy}"
+                    Style="{StaticResource ButtonOutline}"
+                    Margin="0,0,0,10"/>
+            
+            <ActivityIndicator IsVisible="{Binding IsBusy}"
+                               IsRunning="{Binding IsBusy}"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               WidthRequest="50"
+                               HeightRequest="50"/>
+        </StackLayout>
+    </Grid>
 </ContentPage>
